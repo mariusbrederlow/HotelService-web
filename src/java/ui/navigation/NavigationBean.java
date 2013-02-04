@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui;
+package ui.navigation;
 
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
