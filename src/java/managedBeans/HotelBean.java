@@ -4,11 +4,15 @@
  */
 package managedBeans;
 
+import Kommunikation.LookUp;
+import interfaces.IHotelService;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
+import javax.naming.NamingException;
 
 /**
  *
@@ -30,10 +34,11 @@ public class HotelBean {
     private String stadt;
 
     
-    public List<HotelBean> getHotelList(){
+    public List<Object> getHotelList() throws NamingException, IOException{
         
-        List<HotelBean> liste = new LinkedList<HotelBean>();
-        
+        List<Object> liste = new LinkedList<Object>();
+//         IHotelService dienst = (IHotelService) new LookUp().doLookUp("java:global/HotelService-ejb/HotelService");
+//         liste = dienst.getallHotels();
         
         return liste;
     }

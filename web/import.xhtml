@@ -5,12 +5,27 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <head>
         <title>TODO supply a title</title>
     </head>
     <body>
-        <h1>Bitte wählen Sie eine XML-Datei zum importieren aus:</h1>
-        <p:fileUpload allowTypes="xml"></p:fileUpload>
+      <f:view>
+                <h:form>  
+                    <p:commandButton value="Suche in form" action="#{tableBean.addHotels()}"/><br/><br/>
+                    <p:dataTable var="data" value="#{tableBean.hotels}" binding="#{data}">  
+                        <p:columns value="#{tableBean.columns}" var="column" columnIndexVar="colIndex">
+
+                    <f:facet name="header">
+                        #{column.header}
+                    </f:facet>
+                    #{data[column.property]}
+                </p:columns>
+                    </p:dataTable>  
+                </h:form> 
+                    </f:view>
     </body>
 </html>

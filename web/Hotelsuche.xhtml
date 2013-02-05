@@ -15,6 +15,9 @@
 
             <h1>Hotelsuche</h1><br/>
             <h2>Bitte geben Sie eine gültige WLAN Station in Ihrer Nähe an:</h2><br/>
+            
+            
+            
             <h:outputText value="WLAN-ID:"/>
             <h:form>
                 <p:inputText label="WLAN-ID" id="WLANID"/>
@@ -38,30 +41,25 @@
                     <f:selectItem itemLabel="Nein" itemValue="2" />
                 </p:selectOneRadio>
                 <p:commandButton value="Suche"/><br/><br/>
-                <h:form>  
-                    <p:dataTable var="stadt" value="">  
-                        <p:column headerText="Stadt">  
-                            <h:outputText value="" />  
-                        </p:column>  
-
-                        <p:column headerText="Hotelname">  
-                            <h:outputText value="" />  
-                        </p:column>  
-
-                        <p:column headerText="Sterne">  
-                            <h:outputText value="" />  
-                        </p:column>  
-
-                        <p:column headerText="Pool">  
-                            <h:outputText value="" />  
-                        </p:column>  
-                    </p:dataTable>  
-                </h:form>  
+                
+               
+                    
             </h:form>
 
 
 
+<h:form id="form_Tabelle">  
+                <p:commandButton value="Suche in form" action="#{tableBean.addHotels()}" update=":form_Tabelle"/><br/><br/>
+                    <p:dataTable var="data" value="#{tableBean.hotels}" binding="#{data}">  
+                        <p:columns value="#{tableBean.columns}" var="column" columnIndexVar="colIndex">
 
+                    <f:facet name="header">
+                        #{column.header}
+                    </f:facet>
+                    #{data[column.property]}
+                </p:columns>
+                    </p:dataTable>  
+                </h:form> 
 
 
         </h:body>
