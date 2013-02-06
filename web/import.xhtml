@@ -13,19 +13,15 @@ and open the template in the editor.
         <title>TODO supply a title</title>
     </head>
     <body>
-      <f:view>
-                <h:form>  
-                    <p:commandButton value="Suche in form" action="#{tableBean.addHotels()}"/><br/><br/>
-                    <p:dataTable var="data" value="#{tableBean.hotels}" binding="#{data}">  
-                        <p:columns value="#{tableBean.columns}" var="column" columnIndexVar="colIndex">
-
-                    <f:facet name="header">
-                        #{column.header}
-                    </f:facet>
-                    #{data[column.property]}
-                </p:columns>
-                    </p:dataTable>  
-                </h:form> 
-                    </f:view>
+     
+  
+          <h:form>
+              <p:commandButton value="test" actionListener="#{locationVerwaltung.getnextknoten()}"/>
+              <h:selectOneMenu>
+                  <f:selectItems value="#{locationVerwaltung.intKnoten}" var="knoten" itemValue="#{knoten.value}"/>
+              </h:selectOneMenu>
+          </h:form>
+          
+   
     </body>
 </html>

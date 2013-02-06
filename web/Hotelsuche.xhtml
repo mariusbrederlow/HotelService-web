@@ -8,7 +8,7 @@
     <f:view contentType="text/html">
         <h:head>
 
-            <title>test</title>        
+            <title>Hotelsuche</title>        
         </h:head>
 
         <h:body>
@@ -16,16 +16,30 @@
             <h1>Hotelsuche</h1><br/>
             <h2>Bitte geben Sie eine gültige WLAN Station in Ihrer Nähe an:</h2><br/>
             
-            
-            
-            <h:outputText value="WLAN-ID:"/>
-            <h:form>
+            <h:form id="startknoten">
+                <h:outputText value="WLAN-ID:"/>
                 <p:inputText label="WLAN-ID" id="WLANID"/>
-                <p:commandButton value="OK"/><br/>
-                <h:outputText value="WLAN-Knoten:  "/>
-                <p:selectOneMenu/><br/><br/>
-                <h:outputText value="WLAN-Knoten:  "/>
-                <p:selectOneMenu/><br/><br/>
+                
+                <p:commandButton value="Suche Knoten" actionListener="#{locationVerwaltung.getnextknoten()}" update=":startknoten:startknoten_menu"/>
+               <br/><br/>
+                <h:outputText value="WLAN-Knoten 2:  "/>
+               <h:selectOneMenu id="startknoten_menu">
+                  <f:selectItems value="#{locationVerwaltung.intKnoten}" var="knoten" itemValue="#{knoten.value}"/>
+              </h:selectOneMenu><br/><br/>
+                <h:outputText value="WLAN-Knoten 3:  "/>
+               <h:selectOneMenu id="knoten2_menu">
+                  <f:selectItems value="#{locationVerwaltung.intKnoten}" var="knoten" itemValue="#{knoten.value}"/>
+              </h:selectOneMenu>
+            </h:form>
+            
+           
+            
+            
+            
+            <h:form>
+                
+                <br/><br/>
+                
                 <h:outputText value="Sie befinden sich in Stadt:  "/><br/><br/>
                 <h:outputText value="Anzahl Sterne " />  
                 <p:selectOneRadio id="sterne" value="">  
@@ -40,7 +54,7 @@
                     <f:selectItem itemLabel="Ja" itemValue="1" />  
                     <f:selectItem itemLabel="Nein" itemValue="2" />
                 </p:selectOneRadio>
-                <p:commandButton value="Suche"/><br/><br/>
+                <br/><br/>
                 
                
                     
@@ -48,8 +62,9 @@
 
 
 
-<h:form id="form_Tabelle">  
-                <p:commandButton value="Suche in form" action="#{tableBean.addHotels()}" update=":form_Tabelle"/><br/><br/>
+        <h:form id="form_Tabelle"> 
+    
+            <p:commandButton value="Suche Hotels" action="#{tableBean.addHotels()}" update=":form_Tabelle"/><br/><br/>
                     <p:dataTable var="data" value="#{tableBean.hotels}" binding="#{data}">  
                         <p:columns value="#{tableBean.columns}" var="column" columnIndexVar="colIndex">
 

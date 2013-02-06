@@ -11,14 +11,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import entities.Hotels;
+import entities.Staedte;
 import interfaces.IHotelService;
+import interfaces.ILocationService;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.NoneScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.naming.NamingException;
 
@@ -30,12 +34,47 @@ public class TableBean implements Serializable {
 
     private List<TableBean.ColumnModel> columns;
     private List<Hotels> hotels;
-
+    private List<Staedte> knoten;
+    private List<SelectItem> selected;
+    private int selected_knoten;
     private String columnName;
 
-    public TableBean() throws NamingException, NamingException, IOException {
+    public List<Staedte> getKnoten() {
+        return knoten;
+    }
+
+    public List<SelectItem> getSelected() {
+        return selected;
+    }
+
+    public void setSelected(List<SelectItem> selected) {
+        this.selected = selected;
+    }
+
+    public void setKnoten(List<Staedte> knoten) {
+        this.knoten = knoten;
+    }
+
+    public int getSelected_knoten() {
+        return selected_knoten;
+    }
+
+    public void setSelected_knoten(int selected_knoten) {
+        this.selected_knoten = selected_knoten;
+    }
+
+    
+    
+    
+    
+    
+    
+    public TableBean() throws NamingException, IOException {
         createDynamicColumns();
        //addHotels();
+        knoten = new ArrayList<Staedte>();
+        selected = new ArrayList<SelectItem>();
+       
     }
 
     public void addHotels() throws NamingException, IOException {
@@ -47,9 +86,13 @@ public class TableBean implements Serializable {
         IHotelService dienst = (IHotelService) new LookUp().doLookUp("java:global/HotelService-ejb/HotelService");
          hotels = Arrays.asList(dienst.getMatchingHotels().toArray(new Hotels[0]));
         
-        
-        
     }
+    
+    
+    
+     
+    
+    
 
     private void createDynamicColumns() {
 
@@ -96,5 +139,6 @@ public class TableBean implements Serializable {
         public String getProperty() {
             return property;
         }
+        
     }
 }
