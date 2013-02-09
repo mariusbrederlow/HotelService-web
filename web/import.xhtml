@@ -1,27 +1,112 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <head>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-     
-  
-          <h:form>
-              <p:commandButton value="test" actionListener="#{locationVerwaltung.getnextknoten()}"/>
-              <h:selectOneMenu>
-                  <f:selectItems value="#{locationVerwaltung.intKnoten}" var="knoten" itemValue="#{knoten.value}"/>
-              </h:selectOneMenu>
-          </h:form>
+
+    <f:view contentType="text/html">
+        <h:head>
+
+            <title>Hotelsuche</title>        
+        </h:head>
+
+        <h:body>
+
+            <h1>Hotelsuche</h1><br/>
+            <h2>Bitte geben Sie eine gültige WLAN Station in Ihrer Nähe an:</h2><br/>
+            
+            <h:form id="knoten1">
+                <h:outputText value="WLAN-ID:"/>
+                <p:inputText label="WLAN-ID" id="WLANID" value="#{LocationManager.knotenID}" required="true"/>
+                
+                <p:commandButton value="Suche Knoten" actionListener="#{LocationManager.getSecKnoten()}" update=":knoten1"/>
+               <br/><br/>
+            
+            
+            
+               
+                <h:outputText value="WLAN-Knoten 2:  "/>
+               
+                <p:selectOneMenu id="knoten2_menu" value="#{LocationManager.knotenIDsec}">
+                       <f:selectItem itemLabel="WLAN-Knoten" itemValue="0"/>
+                         <f:selectItems value="#{LocationManager.intKnoten}"/>                         
+                   </p:selectOneMenu>
+                <p:commandButton value="Suche Knoten" actionListener="#{LocationManager.trdKnotenIDleseen()}" update=":knoten1:knoten3_menu"/><br/><br/>
+                   
+                    <h:outputText value="WLAN-Knoten 3:  "/>
+                    <p:selectOneMenu id="knoten3_menu" value="#{LocationManager.knotenID3rd}">
+                        <f:selectItem itemLabel="WLAN-Knoten" itemValue="0"/>
+                        <f:selectItems value="#{LocationManager.trdKnoten}"/> 
+                     </p:selectOneMenu>
+                    <p:commandButton value="Finde Stadt" actionListener="#{LocationManager.getOrt()}" update=":knoten1:stadtname"/><br/><br/>
+                    <h3>
+                  <h:outputText id="stadtname" value="Sie befinden sich in Stadt: #{LocationManager.stadtname}"/>
+                    </h3> 
+                    
+                           </h:form>
+            <h:form id="form_sterne">
+                <h:outputText value="Anzahl Sterne " />  
+            
+                <p:selectOneRadio id="sterne" value="#{HotelManager.sterne}" onchange="submit()">  
+                    <f:selectItem itemLabel="1*" itemValue="1" />  
+                    <f:selectItem itemLabel="2*" itemValue="2" />  
+                    <f:selectItem itemLabel="3*" itemValue="3" />  
+                    <f:selectItem itemLabel="4*" itemValue="4" />  
+                    <f:selectItem itemLabel="5*" itemValue="5" />  
+                </p:selectOneRadio>  <br/>
+                </h:form>
+            <h:form id="form_pool">
+                <h:outputText value="Pool ? " />   
+                <p:selectOneRadio id="pool" value="#{HotelManager.pool}" onchange="submit()">
+                <f:selectItem itemLabel="Ja" itemValue="1" />  
+                <f:selectItem itemLabel="Nein" itemValue="0" /> 
+                </p:selectOneRadio>
+                
+                  
+            
+            </h:form>
+                  
+                
+      
+                <br/><br/>
+                
+            
+            
+             <h:form id="form_Tabelle"> 
+    
+                 <p:commandButton value="Finde alle Hotels   " action="#{HotelManager.findeAlleHotelsInStadt()}" update=":form_Tabelle"/>
+                 <p:commandButton value="Finde passende Hotels   " action="#{HotelManager.findePassendeHotelsInStadt()}" update=":form_Tabelle"/><br/><br/>
+                 <p:dataTable var="data" value="#{HotelManager.hotels}">  
+                     
+                     <p:column headerText="Hotel Name">
+                         <h:outputText value="#{data.hotelName}"/>
+                     </p:column>
+                     
+                     <p:column headerText="Sterne">
+                         <h:outputText value="#{data.sterne}"/>
+                     </p:column>
+                     
+                     <p:column headerText="Pool">
+                         <h:outputText value="#{data.pool}"/>
+                     </p:column>
+                     
+                    </p:dataTable>  
+                </h:form>
+            
+         
+            
+           
+            
+            
+            
           
-   
-    </body>
+
+
+
+
+        </h:body>
+
+    </f:view>
 </html>
+

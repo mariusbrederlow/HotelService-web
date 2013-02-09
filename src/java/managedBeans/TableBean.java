@@ -7,21 +7,17 @@ package managedBeans;
 
 
 import Kommunikation.LookUp;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import entities.Hotels;
 import entities.Staedte;
 import interfaces.IHotelService;
-import interfaces.ILocationService;
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.NoneScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.naming.NamingException;
@@ -38,6 +34,9 @@ public class TableBean implements Serializable {
     private List<SelectItem> selected;
     private int selected_knoten;
     private String columnName;
+    private int sterne;
+    @ManagedProperty(value="#{LocationManager}")
+    private LocationManager lm;
 
     public List<Staedte> getKnoten() {
         return knoten;
@@ -81,10 +80,11 @@ public class TableBean implements Serializable {
         
         System.out.println("addHotels");
         
-        hotels = new ArrayList<Hotels>();
+//        hotels = new ArrayList<Hotels>();
        
         IHotelService dienst = (IHotelService) new LookUp().doLookUp("java:global/HotelService-ejb/HotelService");
-         hotels = Arrays.asList(dienst.getMatchingHotels().toArray(new Hotels[0]));
+//         hotels = Arrays.asList(dienst.getMatchingHotels().toArray(new Hotels[0]));
+        hotels = dienst.getHotelFromStadt(lm.getStadt());
         
     }
     
@@ -141,4 +141,23 @@ public class TableBean implements Serializable {
         }
         
     }
+
+    public int getSterne() {
+        return sterne;
+    }
+
+    public void setSterne(int sterne) {
+        this.sterne = sterne;
+    }
+
+    public LocationManager getLm() {
+        return lm;
+    }
+
+    public void setLm(LocationManager lm) {
+        this.lm = lm;
+    }
+
+
+
 }

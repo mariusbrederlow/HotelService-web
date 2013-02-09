@@ -16,19 +16,32 @@
             <h1>Hotelsuche</h1><br/>
             <h2>Bitte geben Sie eine gültige WLAN Station in Ihrer Nähe an:</h2><br/>
             
-            <h:form id="startknoten">
+            <h:form id="knoten1">
                 <h:outputText value="WLAN-ID:"/>
-                <p:inputText label="WLAN-ID" id="WLANID"/>
+                <p:inputText label="WLAN-ID" id="WLANID" value="#{locationManager.knotenID}" required="true"/>
                 
-                <p:commandButton value="Suche Knoten" actionListener="#{locationVerwaltung.getnextknoten()}" update=":startknoten:startknoten_menu"/>
+                <p:commandButton value="Suche Knoten" actionListener="#{locationManager.getSecKnoten()}" update=":knoten2:knoten2_menu"/>
                <br/><br/>
+            </h:form>
+            
+            
+               
                 <h:outputText value="WLAN-Knoten 2:  "/>
-               <h:selectOneMenu id="startknoten_menu">
-                  <f:selectItems value="#{locationVerwaltung.intKnoten}" var="knoten" itemValue="#{knoten.value}"/>
-              </h:selectOneMenu><br/><br/>
+               <h:form id="knoten2">
+                   <h:selectOneMenu id="knoten2_menu" value="#{locationManager.knotenIDsec}">
+                         <f:selectItems value="#{locationManager.intKnoten}"/>                         
+                   </h:selectOneMenu>
+                   <p:commandButton value="test" actionListener="#{locationManager.nextKnotenID()}"/>
+               </h:form>
+                <br/><br/>
+                
+            
+            
+            
+            <h:form id="knoten3">
                 <h:outputText value="WLAN-Knoten 3:  "/>
-               <h:selectOneMenu id="knoten2_menu">
-                  <f:selectItems value="#{locationVerwaltung.intKnoten}" var="knoten" itemValue="#{knoten.value}"/>
+               <h:selectOneMenu id="knoten3_menu">
+                  <f:selectItems/>
               </h:selectOneMenu>
             </h:form>
             
