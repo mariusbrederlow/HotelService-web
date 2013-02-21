@@ -18,76 +18,91 @@
             
             <h:form id="knoten1">
                 <h:outputText value="WLAN-ID:"/>
-                <p:inputText label="WLAN-ID" id="WLANID" value="#{locationManager.knotenID}" required="true"/>
+                <p:inputText label="WLAN-ID" id="WLANID" value="#{LocationManager.knotenID}" required="true"/>
                 
-                <p:commandButton value="Suche Knoten" actionListener="#{locationManager.getSecKnoten()}" update=":knoten2:knoten2_menu"/>
+                <p:commandButton value="Suche Knoten" actionListener="#{LocationManager.getSecKnoten()}" update=":knoten1"/>
                <br/><br/>
-            </h:form>
+            
             
             
                
                 <h:outputText value="WLAN-Knoten 2:  "/>
-               <h:form id="knoten2">
-                   <h:selectOneMenu id="knoten2_menu" value="#{locationManager.knotenIDsec}">
-                         <f:selectItems value="#{locationManager.intKnoten}"/>                         
-                   </h:selectOneMenu>
-                   <p:commandButton value="test" actionListener="#{locationManager.nextKnotenID()}"/>
-               </h:form>
+               
+                <p:selectOneMenu id="knoten2_menu" value="#{LocationManager.knotenIDsec}">
+                       <f:selectItem itemLabel="WLAN-Knoten" itemValue="0"/>
+                       <f:selectItems value="#{LocationManager.zweiterKnoten}"/>                         
+                   </p:selectOneMenu>
+                <p:commandButton value="Suche Knoten" actionListener="#{LocationManager.trdKnotenIDleseen()}" update=":knoten1:knoten3_menu"/><br/><br/>
+                   
+                    <h:outputText value="WLAN-Knoten 3:  "/>
+                    <p:selectOneMenu id="knoten3_menu" value="#{LocationManager.knotenID3rd}">
+                        <f:selectItem itemLabel="WLAN-Knoten" itemValue="0"/>
+                        <f:selectItems value="#{LocationManager.dritterKnoten}"/> 
+                     </p:selectOneMenu>
+                    <p:commandButton value="Finde Stadt" actionListener="#{LocationManager.getOrt()}" update=":knoten1:stadtname"/><br/><br/>
+                    <h3>
+                  <h:outputText id="stadtname" value="Sie befinden sich in Stadt: #{LocationManager.stadtname}"/>
+                    </h3> 
+                    
+                           </h:form>
+            <h:form id="form_sterne">
+                <h:outputText value="Anzahl Sterne " />  
+            
+                <p:selectOneRadio id="sterne" value="#{HotelManager.sterne}" onchange="submit()">  
+                    <f:selectItem itemLabel="1*" itemValue="1" />  
+                    <f:selectItem itemLabel="2*" itemValue="2" />  
+                    <f:selectItem itemLabel="3*" itemValue="3" />  
+                    <f:selectItem itemLabel="4*" itemValue="4" />  
+                    <f:selectItem itemLabel="5*" itemValue="5" />  
+                </p:selectOneRadio>  <br/>
+                </h:form>
+            <h:form id="form_pool">
+                <h:outputText value="Pool ? " />   
+                <p:selectOneRadio id="pool" value="#{HotelManager.pool}" onchange="submit()">
+                <f:selectItem itemLabel="Ja" itemValue="1" />  
+                <f:selectItem itemLabel="Nein" itemValue="0" /> 
+                </p:selectOneRadio>
+                
+                  
+            
+            </h:form>
+                  
+                
+      
                 <br/><br/>
                 
             
             
+             <h:form id="form_Tabelle"> 
+    
+                 <p:commandButton value="Finde alle Hotels   " action="#{HotelManager.findeAlleHotelsInStadt()}" update=":form_Tabelle"/>
+                 <p:commandButton value="Finde passende Hotels   " action="#{HotelManager.findePassendeHotelsInStadt()}" update=":form_Tabelle"/><br/><br/>
+                 <p:dataTable var="data" value="#{HotelManager.hotels}">  
+                     
+                     <p:column headerText="Hotel Name">
+                         <h:outputText value="#{data.hotelName}"/>
+                     </p:column>
+                     
+                     <p:column headerText="Sterne">
+                         <h:outputText value="#{data.sterne}"/>
+                     </p:column>
+                     
+                     <p:column headerText="Pool">
+                         <h:outputText value="#{data.pool}"/>
+                     </p:column>
+                     
+                    </p:dataTable>  
+                </h:form>
             
-            <h:form id="knoten3">
-                <h:outputText value="WLAN-Knoten 3:  "/>
-               <h:selectOneMenu id="knoten3_menu">
-                  <f:selectItems/>
-              </h:selectOneMenu>
-            </h:form>
+         
             
            
             
             
             
-            <h:form>
-                
-                <br/><br/>
-                
-                <h:outputText value="Sie befinden sich in Stadt:  "/><br/><br/>
-                <h:outputText value="Anzahl Sterne " />  
-                <p:selectOneRadio id="sterne" value="">  
-                    <f:selectItem itemLabel="1*" itemValue="1" />  
-                    <f:selectItem itemLabel="2*" itemValue="2" />  
-                    <f:selectItem itemLabel="3*" itemValue="3" />  
-                    <f:selectItem itemLabel="4*" itemValue="3" />  
-                    <f:selectItem itemLabel="5*" itemValue="3" />  
-                </p:selectOneRadio>  <br/>
-                <h:outputText value="Pool ?"/><br/>
-                <p:selectOneRadio id="pool" value="">  
-                    <f:selectItem itemLabel="Ja" itemValue="1" />  
-                    <f:selectItem itemLabel="Nein" itemValue="2" />
-                </p:selectOneRadio>
-                <br/><br/>
-                
-               
-                    
-            </h:form>
+          
 
 
-
-        <h:form id="form_Tabelle"> 
-    
-            <p:commandButton value="Suche Hotels" action="#{tableBean.addHotels()}" update=":form_Tabelle"/><br/><br/>
-                    <p:dataTable var="data" value="#{tableBean.hotels}" binding="#{data}">  
-                        <p:columns value="#{tableBean.columns}" var="column" columnIndexVar="colIndex">
-
-                    <f:facet name="header">
-                        #{column.header}
-                    </f:facet>
-                    #{data[column.property]}
-                </p:columns>
-                    </p:dataTable>  
-                </h:form> 
 
 
         </h:body>

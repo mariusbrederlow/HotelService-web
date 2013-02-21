@@ -7,7 +7,6 @@ package managedBeans;
 import Kommunikation.LookUp;
 import entities.Hotels;
 import interfaces.IHotelService;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -19,51 +18,31 @@ import javax.naming.NamingException;
  *
  * @author mariusbrederlow
  */
-
-@ManagedBean(name="HotelManager")
+@ManagedBean(name = "HotelManager")
 @SessionScoped
-public class HotelManager implements Serializable{
+public class HotelManager implements Serializable {
 
     private List<Hotels> hotels;
     private int sterne;
     private int pool;
     private int stadtid;
-    @ManagedProperty(value="#{LocationManager}")
+    @ManagedProperty(value = "#{LocationManager}")
     private LocationManager lm;
-    
-    
-    
+
     public HotelManager() {
-
     }
 
-    
-    
-    public void testValues(){
-        
-        System.out.println("TestValues");
-        System.out.println(sterne);
-        System.out.println(pool);
-        System.out.println(lm.getStadtid());
+    public void findeAlleHotelsInStadt() throws NamingException {
+        IHotelService dienst = (IHotelService) new LookUp().doLookUp("java:global/HotelService-ejb/HotelService");
+        hotels = dienst.sucheHotelsInStadt(lm.getStadt());
     }
-    
-    
-   public void findeAlleHotelsInStadt() throws NamingException, IOException{
+
+    public void findePassendeHotelsInStadt() throws NamingException {
         IHotelService dienst = (IHotelService) new LookUp().doLookUp("java:global/HotelService-ejb/HotelService");
-        hotels = dienst.getHotelFromStadt(lm.getStadt());
+        hotels = dienst.suchePassendeHotels(lm.getStadt(), pool, sterne);
         
-   }
-    
-   public void findePassendeHotelsInStadt() throws NamingException, IOException{
-       System.out.println(pool);
-       System.out.println(sterne);
-        IHotelService dienst = (IHotelService) new LookUp().doLookUp("java:global/HotelService-ejb/HotelService");
-        hotels = dienst.getMatchingHotels(lm.getStadt(), pool, sterne);
-        
-   }
-    
-    
-    
+    }
+
     public int getSterne() {
         return sterne;
     }
@@ -103,11 +82,4 @@ public class HotelManager implements Serializable{
     public void setHotels(List<Hotels> hotels) {
         this.hotels = hotels;
     }
-
- 
-
-
-
-
-
 }

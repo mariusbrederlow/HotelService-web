@@ -19,7 +19,7 @@
                        
                         <p:submenu label="Navigation">
                             <p:menuitem value="Hotel suchen" action="#{navigationBean.setPageToDisplay('Hotelsuche.xhtml')}" update=":centerpanel"/>                            
-                            <p:menuitem value="Logout" action="#{navigationBean.setPageToDisplay('logout.xhtml')}" update=":centerpanel"/>
+                            <p:menuitem value="Logout" action="#{SessionManager.doLogout()}" update=":centerpanel"/>
                         </p:submenu>
 
                     </p:menu>

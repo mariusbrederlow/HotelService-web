@@ -25,7 +25,7 @@ public class NavigationBean implements Serializable {
     public NavigationBean() {
     }
 
-private String pageToDisplay = "logout.xhtml";
+private String pageToDisplay = "Hotelsuche.xhtml";
 
   public String getPageToDisplay(){
       System.out.println("getppage");
