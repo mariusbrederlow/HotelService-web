@@ -25,7 +25,7 @@ public class ListenFilter implements Serializable {
     public ListenFilter() {
     }
     
-    //Entfernt WLAN Knoten1 aus der Liste der Knoten
+    //Entfernt gewaehlten WLAN Knoten1 aus der Liste der Knoten
     public Set<Integer> entferneGewaelteKnoten(List<Staedte> knoten, int knotenID){        
         Set knotenListe = new HashSet();
         Iterator itr = knoten.iterator();
@@ -52,7 +52,7 @@ public class ListenFilter implements Serializable {
     }
     
     
-        //Entfernt WLAN Knoten1 und Knoten2 aus der Liste
+        //Entfernt gewaehlten WLAN Knoten1 und Knoten2 aus der Liste
        public Set<Integer> entferneGewaelteKnoten(List<Staedte> knoten, int knotenID, int knotenIDsec){        
         Set knotenListe = new HashSet();
         Iterator itr = knoten.iterator();

@@ -18,13 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 @NoneScoped
 public class SessionManager {
 
-    /**
-     * Creates a new instance of SessionManager
-     */
+    
     public SessionManager() {
     }
     
-    
+    /*
+     * Holt sich den Request aus dem Faces Context, fuehrt ein Logout aus und invalidiert die Session.
+     */
     public String doLogout() throws ServletException {
         HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         req.logout();

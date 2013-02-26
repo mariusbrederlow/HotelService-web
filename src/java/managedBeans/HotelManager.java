@@ -5,6 +5,7 @@
 package managedBeans;
 
 import Kommunikation.LookUp;
+import Util.XMLConverter;
 import entities.Hotels;
 import interfaces.IHotelService;
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.naming.NamingException;
+import javax.xml.bind.JAXBException;
 
 /**
  *
@@ -28,18 +30,34 @@ public class HotelManager implements Serializable {
     private int stadtid;
     @ManagedProperty(value = "#{LocationManager}")
     private LocationManager lm;
+    
 
     public HotelManager() {
     }
 
     public void findeAlleHotelsInStadt() throws NamingException {
         IHotelService dienst = (IHotelService) new LookUp().doLookUp("java:global/HotelService-ejb/HotelService");
-        hotels = dienst.sucheHotelsInStadt(lm.getStadt());
+        XMLConverter converter = new XMLConverter();
+        try{
+            byte[] bos = dienst.sucheHotelsInStadt(lm.getStadt());
+            hotels = converter.unmarshal(bos);
+        }
+        catch(JAXBException e){
+            e.printStackTrace(System.out);
+        }
     }
 
     public void findePassendeHotelsInStadt() throws NamingException {
         IHotelService dienst = (IHotelService) new LookUp().doLookUp("java:global/HotelService-ejb/HotelService");
-        hotels = dienst.suchePassendeHotels(lm.getStadt(), pool, sterne);
+        XMLConverter converter = new XMLConverter();
+        try{
+            byte[] bos = dienst.suchePassendeHotels(lm.getStadt(), pool, sterne);
+            hotels = converter.unmarshal(bos);
+        }
+        catch(JAXBException e){
+            e.printStackTrace(System.out);
+        }
+        
         
     }
 

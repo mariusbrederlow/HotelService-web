@@ -25,6 +25,7 @@
         <auth-constraint>
             <description/>
             <role-name>admin</role-name>
+            <role-name>hotelservice</role-name>
         </auth-constraint>
         <user-data-constraint>
             <transport-guarantee>NONE</transport-guarantee>
